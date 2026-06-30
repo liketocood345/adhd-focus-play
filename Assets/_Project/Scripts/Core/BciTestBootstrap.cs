@@ -1,21 +1,20 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace ADHDTraining.Core
 {
     /// <summary>
-    /// 一键搭建测试场景：BciSystem + OpenSeeFace + 简易演示物体。
+    /// 一键搭建测试场景：BciSystem + MediaPipe + 简易演示物体。
     /// 挂到 Bootstrap 场景任意物体上即可运行测试版。
     /// </summary>
     public class BciTestBootstrap : MonoBehaviour
     {
-        [Header("OpenSeeFace paths (EasyVtuber)")]
-        [SerializeField] private string facetrackerExe =
-            @"f:\EasyVtuber\OpenSeeFace-v1.20.4\Binary\facetracker.exe";
-        [SerializeField] private string modelsDir =
-            @"f:\EasyVtuber\OpenSeeFace-v1.20.4\models\";
+        [Header("MediaPipe")]
+        [SerializeField] private string pythonExe = MediaPipe.MediaPipeBridgeLauncher.DefaultPython;
         [SerializeField] private int cameraIndex = 0;
         [SerializeField] private bool startTrackerOnPlay = true;
         [SerializeField] private bool useCompensationByDefault = true;
+        [SerializeField] private bool redirectToMainMenu = true;
 
         private BciInputRouter _router;
         private CompensationBciInputProvider _compensation;
@@ -23,6 +22,13 @@ namespace ADHDTraining.Core
 
         private void Awake()
         {
+            if (redirectToMainMenu)
+            {
+                if (SceneManager.GetActiveScene().name != SceneNames.MainMenu)
+                    SceneManager.LoadScene(SceneNames.MainMenu);
+                return;
+            }
+
             BuildBciSystem();
             BuildDemoVisual();
         }
@@ -48,20 +54,10 @@ namespace ADHDTraining.Core
         private void BuildBciSystem()
         {
             var root = new GameObject("BciSystem");
-            var openSee = root.AddComponent<OpenSee.OpenSee>();
-            var launcher = root.AddComponent<OpenSee.OpenSeeLauncher>();
-            launcher.openSeeTarget = openSee;
-            launcher.exePath = facetrackerExe;
-            launcher.modelPath = modelsDir;
-            launcher.cameraIndex = cameraIndex;
-            launcher.autoStart = false;
-            launcher.dontPrint = true;
-
             _compensation = root.AddComponent<CompensationBciInputProvider>();
             var mock = root.AddComponent<MockBciInputProvider>();
             var hybrid = root.AddComponent<HybridBciInputProvider>();
-            _compensation.Bind(openSee, launcher);
-            _compensation.ConfigurePaths(facetrackerExe, modelsDir, cameraIndex);
+            _compensation.ConfigurePaths(pythonExe, null, cameraIndex);
 
             _router = root.AddComponent<BciInputRouter>();
             _router.Bind(_compensation, mock, hybrid);

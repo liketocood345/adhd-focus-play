@@ -1,32 +1,26 @@
-using System;
 using UnityEngine;
 
 namespace ADHDTraining.Core
 {
-    /// <summary>
-    /// 报告通用规则：专注力持续低于 30 超过阈值秒数则暂停。
-    /// </summary>
     public class FocusPauseController : MonoBehaviour
     {
-        [SerializeField] private MonoBehaviour inputProviderBehaviour;
-
-        private IBciInputProvider InputProvider =>
-            inputProviderBehaviour as IBciInputProvider;
+        private IBciInputProvider _input;
         [SerializeField] private float lowFocusThreshold = 30f;
         [SerializeField] private float pauseAfterSeconds = 3f;
 
-        public event Action Paused;
-        public event Action Resumed;
-
+        public event System.Action Paused;
+        public event System.Action Resumed;
         public bool IsPaused { get; private set; }
 
         private float _lowFocusTimer;
 
+        public void Bind(IBciInputProvider input) => _input = input;
+
         private void Update()
         {
-            if (InputProvider == null) return;
+            if (_input == null) return;
 
-            if (InputProvider.Current.Focus < lowFocusThreshold)
+            if (_input.Current.Focus < lowFocusThreshold)
                 _lowFocusTimer += Time.deltaTime;
             else
                 _lowFocusTimer = 0f;
@@ -36,7 +30,7 @@ namespace ADHDTraining.Core
                 IsPaused = true;
                 Paused?.Invoke();
             }
-            else if (IsPaused && InputProvider.Current.Focus >= lowFocusThreshold)
+            else if (IsPaused && _input.Current.Focus >= lowFocusThreshold)
             {
                 IsPaused = false;
                 Resumed?.Invoke();

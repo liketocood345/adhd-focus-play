@@ -1,33 +1,67 @@
+using ADHDTraining.Core.BciTransport;
 using UnityEngine;
 
 namespace ADHDTraining.Core
 {
     /// <summary>
-    /// HybridBCI 正式设备占位。接入 SDK 后在此读取蓝牙数据。
+    /// HybridBCI：经 IExternalBciTransport 接收外部数据（UDP/回放等）。
     /// </summary>
     public class HybridBciInputProvider : MonoBehaviour, IBciInputProvider
     {
-        [SerializeField] private float focus = 50f;
+        [SerializeField] private float scrollFallbackFocus = 50f;
         [SerializeField] private float scrollSensitivity = 80f;
         [SerializeField] private bool allowScrollFallback = true;
 
+        private IExternalBciTransport _transport;
         private BciInputSnapshot _current;
 
         public BciInputSnapshot Current => _current;
-        public bool IsConnected => false;
+        public bool IsConnected => _transport != null && _transport.IsConnected;
+        public IExternalBciTransport Transport => _transport;
+
+        public void ConfigureTransport(IExternalBciTransport transport, BciTransportConfig config)
+        {
+            _transport?.Disconnect();
+            _transport = transport ?? new NullBciTransport();
+            _transport.Connect(config ?? new BciTransportConfig());
+        }
+
+        private void Awake()
+        {
+            if (_transport == null)
+            {
+                var config = BciTransportFactory.LoadFromResources();
+                ConfigureTransport(BciTransportFactory.Create(config), config);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _transport?.Disconnect();
+        }
 
         private void Update()
         {
-            if (allowScrollFallback)
-                focus = FocusScrollController.ApplyScroll(focus, scrollSensitivity);
+            _transport?.Tick();
 
-            // TODO: 接入 HybridBCI SDK — 读取专注力、眨眼、头动
-            _current = new BciInputSnapshot
+            if (_transport != null && _transport.TryRead(out var snap, out var raw) && !string.IsNullOrEmpty(raw))
             {
-                Focus = focus,
-                Blink = false,
-                Head = HeadGesture.None
-            };
+                _current = snap;
+                _current.RawDebug = raw;
+            }
+            else
+            {
+                if (allowScrollFallback)
+                    scrollFallbackFocus = FocusScrollController.ApplyScroll(scrollFallbackFocus, scrollSensitivity);
+
+                _current = new BciInputSnapshot
+                {
+                    Focus = scrollFallbackFocus,
+                    Blink = false,
+                    Head = HeadGesture.None,
+                    RawDebug = IsConnected ? "waiting" : "not_connected"
+                };
+            }
         }
     }
 }

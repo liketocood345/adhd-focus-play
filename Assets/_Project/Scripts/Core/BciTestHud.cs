@@ -24,7 +24,7 @@ namespace ADHDTraining.Core
             if (router == null) return;
 
             var snap = router.Current;
-            var mode = router.UseCompensation ? "代偿 (摄像头+OpenSeeFace)" : router.ActiveMode.ToString();
+            var mode = router.UseCompensation ? "代偿 (摄像头+MediaPipe)" : router.ActiveMode.ToString();
 
             GUILayout.BeginArea(new Rect(10, 10, 420, 280), GUI.skin.box);
             GUILayout.Label("<b>ADHD 注意力训练 — BCI 测试版</b>");
@@ -36,15 +36,15 @@ namespace ADHDTraining.Core
             GUILayout.Space(8);
             GUILayout.Label("滚轮 — 调节专注力");
             GUILayout.Label("C — 切换代偿开/关");
-            GUILayout.Label("T — 启动/停止 OpenSeeFace");
-            GUILayout.Label("模拟模式: 空格眨眼, W/S/Q/E 头动");
+            GUILayout.Label("T — 启动/停止 MediaPipe 追踪");
+            GUILayout.Label("模拟模式: 空格眨眼, W/S/A/D 头动, Q/E 举手");
             GUILayout.EndArea();
         }
 
         private void Update()
         {
             if (router == null || compensation == null) return;
-            if (!Input.GetKeyDown(toggleTrackerKey) || !router.UseCompensation)
+            if (!BciLegacyInput.GetKeyDown(toggleTrackerKey) || !router.UseCompensation)
                 return;
 
             if (_trackerRunning)

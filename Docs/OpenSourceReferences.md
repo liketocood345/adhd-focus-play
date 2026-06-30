@@ -113,3 +113,17 @@
 ## 许可证提醒
 
 fork 前请检查各仓库 LICENSE。商业/竞赛用途优先选择 MIT、Apache-2.0 等明确许可的项目。
+
+---
+
+## 本仓库实施记录（2026-03）
+
+| 游戏 | 实施方案 | 脚本 |
+|------|----------|------|
+| 听音寻宝 | 自研：`AudioSource` + 程序生成双音轨，45s 回合 | `SelectiveGameSession` |
+| 无尽跑酷者 | 自研：三车道 Primitive 跑酷 + 障碍生成 | `SustainedGameSession` |
+| 指令反转 | 自研：UI 指令 + 点头/摇头确认 | `ShiftingGameSession` |
+| 双线救援 | 自研：左右分屏事件队列 | `DividedGameSession` |
+| 红灯停绿灯行 | 自研：晶石/陨石掉落 + 抑制规则 | `InhibitionGameSession` |
+
+未直接 fork 外部 Unity 仓库代码；玩法逻辑参考上表开源项目，在 Unity 6 下重写。后续可替换美术 Prefab（AwesomeRunner、response-inhibition-game 等）。

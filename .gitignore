@@ -9,6 +9,15 @@
 [Mm]emoryCaptures/
 [Rr]ecordings/
 
+# Python
+__pycache__/
+*.pyc
+
+# IDE / local
+.cursor/
+unity-*.log
+Tools/import_oss_art/.cache/
+
 # IDE
 .vs/
 .idea/

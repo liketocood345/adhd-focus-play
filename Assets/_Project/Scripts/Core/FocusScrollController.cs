@@ -12,7 +12,7 @@ namespace ADHDTraining.Core
 
         public static float ApplyScroll(float current, float scrollSensitivity = 80f)
         {
-            var scroll = Input.GetAxis("Mouse ScrollWheel");
+            var scroll = BciLegacyInput.MouseScrollWheel;
             if (Mathf.Abs(scroll) < 0.0001f)
                 return current;
 

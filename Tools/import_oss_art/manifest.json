@@ -1,0 +1,56 @@
+{
+  "repos": [
+    {
+      "id": "AwesomeRunner",
+      "url": "https://github.com/VladimirPirozhenko/AwesomeRunner.git",
+      "license": "MIT",
+      "games": ["sustained"],
+      "sourcePaths": ["Assets", "Textures", "Models", "Prefabs", "Sprites", "Audio", "Materials", "Meshes"],
+      "extensions": [".png", ".jpg", ".jpeg", ".tga", ".psd", ".fbx", ".obj", ".prefab", ".mat", ".wav", ".mp3", ".ogg", ".controller", ".anim"]
+    },
+    {
+      "id": "ResponseInhibition",
+      "url": "https://github.com/jpickavance/response-inhibition-game-unity-project.git",
+      "license": "unknown",
+      "games": ["inhibition"],
+      "sourcePaths": ["Assets", "Sprites", "Textures", "Prefabs", "Audio", "Materials"],
+      "extensions": [".png", ".jpg", ".jpeg", ".tga", ".psd", ".fbx", ".prefab", ".mat", ".wav", ".mp3", ".ogg", ".controller", ".anim"]
+    },
+    {
+      "id": "HiraRunner",
+      "url": "https://github.com/Ruaneri-Portela/Hira-Runner.git",
+      "license": "unknown",
+      "games": ["sustained"],
+      "sourcePaths": ["Assets", "Textures", "Models", "Prefabs", "Sprites", "Audio", "Materials"],
+      "extensions": [".png", ".jpg", ".jpeg", ".tga", ".psd", ".fbx", ".obj", ".prefab", ".mat", ".wav", ".mp3", ".ogg", ".controller", ".anim"]
+    },
+    {
+      "id": "InfinityRun",
+      "url": "https://github.com/LuzMurilo/infinity-run.git",
+      "license": "MIT",
+      "games": ["sustained"],
+      "sourcePaths": ["Assets", "Textures", "Prefabs", "Sprites", "Audio", "Materials"],
+      "extensions": [".png", ".jpg", ".jpeg", ".tga", ".psd", ".fbx", ".prefab", ".mat", ".wav", ".mp3", ".ogg"]
+    }
+  ],
+  "bindingEntries": [
+    {
+      "gameId": "sustained",
+      "repo": "AwesomeRunner",
+      "slots": [
+        { "slot": "player", "hints": ["player", "character", "runner", "hero"] },
+        { "slot": "obstacle", "hints": ["obstacle", "barrier", "block", "hazard"] },
+        { "slot": "bonus", "hints": ["coin", "gem", "star", "bonus", "pickup"] }
+      ]
+    },
+    {
+      "gameId": "inhibition",
+      "repo": "ResponseInhibition",
+      "slots": [
+        { "slot": "collector", "hints": ["player", "basket", "collector", "bat"] },
+        { "slot": "crystal", "hints": ["gem", "crystal", "good", "fruit", "apple"] },
+        { "slot": "meteor", "hints": ["bad", "bomb", "rock", "meteor", "splat"] }
+      ]
+    }
+  ]
+}

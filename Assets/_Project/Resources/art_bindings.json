@@ -1,0 +1,20 @@
+{
+  "games": [
+    {
+      "id": "sustained",
+      "prefabs": [
+        { "slot": "player", "path": "Art/ThirdParty/AwesomeRunner/Player" },
+        { "slot": "obstacle", "path": "Art/ThirdParty/AwesomeRunner/Obstacle" },
+        { "slot": "bonus", "path": "Art/ThirdParty/AwesomeRunner/Coin" }
+      ]
+    },
+    {
+      "id": "inhibition",
+      "prefabs": [
+        { "slot": "collector", "path": "Art/ThirdParty/ResponseInhibition/Collector" },
+        { "slot": "crystal", "path": "Art/ThirdParty/ResponseInhibition/Crystal" },
+        { "slot": "meteor", "path": "Art/ThirdParty/ResponseInhibition/Meteor" }
+      ]
+    }
+  ]
+}

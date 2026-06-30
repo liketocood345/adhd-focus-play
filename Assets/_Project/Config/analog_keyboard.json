@@ -1,0 +1,10 @@
+{
+  "focusKey": "F",
+  "blinkKey": "Space",
+  "nodKey": "W",
+  "shakeKey": "S",
+  "turnLeftKey": "Q",
+  "turnRightKey": "E",
+  "preferWootingSdk": true,
+  "preferHidTier": true
+}

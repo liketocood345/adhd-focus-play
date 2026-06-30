@@ -1,0 +1,4 @@
+# EasyVtuberStudio 同级 FaceMesh（refine_landmarks）+ Pose + Hands
+mediapipe>=0.10.9,<0.11
+opencv-python>=4.8.0
+numpy>=1.24.0
