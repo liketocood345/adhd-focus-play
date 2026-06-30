@@ -1,6 +1,8 @@
-# ADHD Attention Training
+# adhd-focus-play
 
-基于脑机接口的 ADHD 儿童多维度注意力游戏训练系统（Unity）。  
+面向 ADHD 儿童的脑机接口注意力游戏训练系统（Unity）。
+
+**仓库地址：** https://github.com/liketocood345/adhd-focus-play  
 参赛作品：**第十一届全国大学生生物医学工程创新设计竞赛** — 基于脑机接口的注意力缺陷多动障碍儿童精准化注意力游戏训练系统。
 
 当前为 **BCI 测试版**：暂无 HybridBCI 头环时，可通过 USB 摄像头 + OpenSeeFace 代偿运行。
@@ -97,8 +99,8 @@
 
 ## 许可证
 
-Unity 工程代码：待定。  
-`Assets/_Project/Plugins/OpenSeeFace/` 遵循 [OpenSeeFace](https://github.com/emilianavt/OpenSeeFace) 原项目许可。
+本项目采用 [Apache License 2.0](LICENSE)。  
+`Assets/_Project/Plugins/OpenSeeFace/` 另遵循 [OpenSeeFace](https://github.com/emilianavt/OpenSeeFace) 原项目许可。
 
 ## 相关链接
 
